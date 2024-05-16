@@ -1,0 +1,5 @@
+name: Armor Hud
+version: '${version}'
+main: com.ixume.armorhud.ArmorHud
+api-version: '1.20'
+load: STARTUP
