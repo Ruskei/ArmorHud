@@ -1,4 +1,4 @@
-name: Armor Hud
+name: ArmorHud
 version: '${version}'
 main: com.ixume.armorhud.ArmorHud
 api-version: '1.20'
