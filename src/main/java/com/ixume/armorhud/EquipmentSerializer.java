@@ -28,7 +28,7 @@ public class EquipmentSerializer {
         helmet.setFont(ArmorHud.PREFIX + ":general");
         //set position
         helmet.setColor(ChatColor.of(new Color(255, 16, 255)));
-        TranslatableComponent xPos = new TranslatableComponent("space.-20");
-        return ComponentSerializer.toString(xPos, helmet);
+        TranslatableComponent translatedHelmet = new TranslatableComponent("offset.-20", helmet);
+        return ComponentSerializer.toString(translatedHelmet);
     }
 }

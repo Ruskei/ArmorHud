@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 public class Hud {
     private EquipmentSerializer equipmentSerializer;
     private final Player player;
+    private int cachedEquipment;
     private BossEvent event;
 
     public Hud(EquipmentSerializer equipmentSerializer, Player player) {
@@ -19,6 +20,7 @@ public class Hud {
     public void init() {
         //generate text for hud
         String text = equipmentSerializer.serialize(player.getEquipment());
+        cachedEquipment = hashEquipment();
         //create boss event
         event = BossEventProvider.createBossEvent(Component.Serializer.fromJson(text), BossEvent.BossBarColor.YELLOW);
         //send to player
@@ -27,6 +29,12 @@ public class Hud {
     }
 
     public void tick() {
+        //check if already cached
+        if (hashEquipment() == cachedEquipment) {
+            return;
+        }
+
+        cachedEquipment = hashEquipment();
         //get text for hud
         String text = equipmentSerializer.serialize(player.getEquipment());
 
@@ -34,5 +42,9 @@ public class Hud {
         //send update packet
         ClientboundBossEventPacket packet = ClientboundBossEventPacket.createUpdateNamePacket(event);
         ((CraftPlayer) player).getHandle().connection.send(packet);
+    }
+
+    private int hashEquipment() {
+        return player.getEquipment() == null ? 0 : player.getEquipment().hashCode();
     }
 }

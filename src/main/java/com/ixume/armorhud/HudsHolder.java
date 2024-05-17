@@ -27,6 +27,6 @@ public final class HudsHolder {
             public void run() {
                 huds.forEach((uuid, hud) -> hud.tick());
             }
-        }, 1, 4);
+        }, 1, 2);
     }
 }
