@@ -62,6 +62,12 @@ public final class ValidItemsChecker {
         validMaterials.add(Material.NETHERITE_AXE);
         validMaterials.add(Material.NETHERITE_HOE);
         validMaterials.add(Material.NETHERITE_SHOVEL);
+
+        validMaterials.add(Material.STONE_SWORD);
+        validMaterials.add(Material.STONE_PICKAXE);
+        validMaterials.add(Material.STONE_AXE);
+        validMaterials.add(Material.STONE_HOE);
+        validMaterials.add(Material.STONE_SHOVEL);
     }
 
     public static ValidItemsChecker getInstance() {

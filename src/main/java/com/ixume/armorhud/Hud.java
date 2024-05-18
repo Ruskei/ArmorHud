@@ -32,8 +32,6 @@ public class Hud {
         slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.CHEST, new Vector2i(-156 + 20, 235)));
         slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.LEGS, new Vector2i(-156 + 20 * 2, 235)));
         slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.FEET, new Vector2i(-156 + 20 * 3, 235)));
-        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.HAND, new Vector2i(130 - 20, 235)));
-        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.OFF_HAND, new Vector2i(130, 235)));
         cachedEquipment = hashEquipment();
         //create boss event
         event = BossEventFactory.getInstance().createBossEvent(Component.Serializer.fromJson(serialize()), BossEvent.BossBarColor.YELLOW);
@@ -79,9 +77,7 @@ public class Hud {
                 stackHash(player.getEquipment().getHelmet()) +
                 stackHash(player.getEquipment().getChestplate()) +
                 stackHash(player.getEquipment().getLeggings()) +
-                stackHash(player.getEquipment().getBoots()) +
-                stackHash(player.getEquipment().getItemInMainHand()) +
-                stackHash(player.getEquipment().getItemInOffHand());
+                stackHash(player.getEquipment().getBoots());
 
         return toHash.hashCode();
     }

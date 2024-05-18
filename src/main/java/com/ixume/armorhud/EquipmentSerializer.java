@@ -7,10 +7,6 @@ import org.bukkit.inventory.EquipmentSlot;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-
-import static net.minecraft.world.item.ArmorItem.Type.HELMET;
 
 public class EquipmentSerializer {
     private final static int DURABILITY_MARKER = 59;
