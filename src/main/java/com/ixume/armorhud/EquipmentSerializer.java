@@ -44,7 +44,7 @@ public class EquipmentSerializer {
     }
 
     private TranslatableComponent translationOf(Material material, EquipmentSlot slot) {
-        TranslatableComponent component = new TranslatableComponent(ArmorHud.PREFIX + (material.equals(Material.AIR) ? (switch(slot) {
+        TranslatableComponent component = new TranslatableComponent(ArmorHud.PREFIX + (!ValidItemsChecker.getInstance().contains(material) ? (switch(slot) {
             case HEAD -> ".HELM.AIR";
             case CHEST -> ".CHEST.AIR";
             case LEGS -> ".LEGS.AIR";

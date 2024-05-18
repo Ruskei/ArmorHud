@@ -35,10 +35,14 @@ public class HudSlot {
             } else {
                 material = relevantItem.getType();
 
-                if (relevantItem.getItemMeta() == null) {
+                if (!relevantItem.hasItemMeta()) {
                     durability = -1;
                 } else {
-                    durability = (int) (255d - (255d * (((double) ((Damageable) relevantItem.getItemMeta()).getDamage()) / ((double) relevantItem.getType().getMaxDurability()))));
+                    if (relevantItem.getItemMeta() instanceof Damageable) {
+                        durability = (int) (255d - (255d * (((double) ((Damageable) relevantItem.getItemMeta()).getDamage()) / ((double) relevantItem.getType().getMaxDurability()))));
+                    } else {
+                        durability = -1;
+                    }
                 }
             }
         }

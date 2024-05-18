@@ -67,7 +67,6 @@ public class Hud {
             if (!result.isEmpty()) components.addAll(result);
         });
 
-        System.out.println(ComponentSerializer.toString(components));
         return ComponentSerializer.toString(components);
     }
 
