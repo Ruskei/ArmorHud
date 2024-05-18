@@ -2,51 +2,56 @@ package com.ixume.armorhud;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TranslatableComponent;
-import net.md_5.bungee.chat.ComponentSerializer;
-import org.bukkit.inventory.EntityEquipment;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Material;
+import org.bukkit.inventory.EquipmentSlot;
 
-import javax.annotation.Nullable;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+
+import static net.minecraft.world.item.ArmorItem.Type.HELMET;
 
 public class EquipmentSerializer {
-    public EquipmentSerializer() {
+    private final static int DURABILITY_MARKER = 59;
+
+    private final HudSlot slot;
+
+    public EquipmentSerializer(HudSlot slot) {
+        this.slot = slot;
     }
 
-    public String serialize(@Nullable
-                            EntityEquipment equipment) {
-
-        TranslatableComponent helm = translationOf(equipment == null ? null : equipment.getHelmet(), SlotEnum.HELMET);
-        TranslatableComponent chest = translationOf(equipment == null ? null : equipment.getChestplate(), SlotEnum.CHESTPLATE);
-        TranslatableComponent legs = translationOf(equipment == null ? null : equipment.getLeggings(), SlotEnum.LEGGINGS);
-        TranslatableComponent feet = translationOf(equipment == null ? null : equipment.getBoots(), SlotEnum.BOOTS);
-        TranslatableComponent main = translationOf(equipment == null ? null : equipment.getItemInMainHand(), SlotEnum.MAIN);
-        TranslatableComponent off = translationOf(equipment == null ? null : equipment.getItemInOffHand(), SlotEnum.OFF);
+    public java.util.List<TranslatableComponent> serializeIcon() {
+        TranslatableComponent itemComponent = translationOf(slot.getMaterial(), slot.getSlot());
         //set position
-        helm.setColor(ChatColor.of(new Color(255, 235, 255)));
-        chest.setColor(ChatColor.of(new Color(255, 235, 255)));
-        legs.setColor(ChatColor.of(new Color(255, 235, 255)));
-        feet.setColor(ChatColor.of(new Color(255, 235, 255)));
-        main.setColor(ChatColor.of(new Color(255, 235, 255)));
-        off.setColor(ChatColor.of(new Color(255, 235, 255)));
-        helm = new TranslatableComponent("offset.-116", helm);
-        chest = new TranslatableComponent("offset.-114", chest);
-        legs = new TranslatableComponent("offset.-112", legs);
-        feet = new TranslatableComponent("offset.-110", feet);
-        main = new TranslatableComponent("offset.78", main);
-        off = new TranslatableComponent("offset.74", off);
-        return ComponentSerializer.toString(helm, chest, legs, feet, main, off);
+        itemComponent.setColor(ChatColor.of(new Color(255, slot.getPosition().y, 255)));
+        return offset(itemComponent, slot.getPosition().x);
     }
 
-    private TranslatableComponent translationOf(@Nullable ItemStack item, SlotEnum slot) {
-        TranslatableComponent component = new TranslatableComponent(ArmorHud.PREFIX + ((item == null || SlotEnum.getEnum(item.getType()) == null) ? (switch(slot) {
-            case HELMET -> ".HELM.AIR";
-            case CHESTPLATE -> ".CHEST.AIR";
-            case LEGGINGS -> ".LEGS.AIR";
-            case BOOTS -> ".FEET.AIR";
-            case MAIN -> ".MAIN.AIR";
-            case OFF -> ".OFF.AIR";
-        }) : ("." + item.getType())));
+    public java.util.List<TranslatableComponent> serializeDurability() {
+        if (slot.getDurability() == -1 || slot.getDurability() == 255) return new ArrayList<>();
+        TranslatableComponent durabilityComponent = new TranslatableComponent(ArmorHud.PREFIX + ".DURABILITY");
+        durabilityComponent.setFont(ArmorHud.PREFIX + ":general");
+        durabilityComponent.setColor(ChatColor.of(new Color(DURABILITY_MARKER, slot.getPosition().y, slot.getDurability())));
+        return offset(durabilityComponent, slot.getPosition().x);
+    }
+
+    private java.util.List<TranslatableComponent> offset(TranslatableComponent component, int offset) {
+        java.util.List<TranslatableComponent> toReturn = new ArrayList<>();
+        toReturn.add(new TranslatableComponent("space.-19"));
+        toReturn.add(new TranslatableComponent("offset." + offset, component));
+        return toReturn;
+    }
+
+    private TranslatableComponent translationOf(Material material, EquipmentSlot slot) {
+        TranslatableComponent component = new TranslatableComponent(ArmorHud.PREFIX + (material.equals(Material.AIR) ? (switch(slot) {
+            case HEAD -> ".HELM.AIR";
+            case CHEST -> ".CHEST.AIR";
+            case LEGS -> ".LEGS.AIR";
+            case FEET -> ".FEET.AIR";
+            case HAND -> ".MAIN.AIR";
+            case OFF_HAND -> ".OFF.AIR";
+        }) : ("." + material)));
 
         component.setFont(ArmorHud.PREFIX + ":general");
         return component;
