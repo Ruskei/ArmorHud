@@ -45,6 +45,16 @@ public class Hud {
     }
 
     private int hashEquipment() {
-        return player.getEquipment() == null ? 0 : player.getEquipment().hashCode();
+        if (player.getEquipment() == null) {
+            return 0;
+        }
+
+        String toHash = (player.getEquipment().getHelmet() == null ? "N" : player.getEquipment().getHelmet().getType().toString())
+                + (player.getEquipment().getChestplate() == null ? "N" : player.getEquipment().getChestplate().getType())
+                + (player.getEquipment().getLeggings() == null ? "N" : player.getEquipment().getLeggings().getType())
+                + (player.getEquipment().getBoots() == null ? "N" : player.getEquipment().getBoots().getType())
+                + player.getEquipment().getItemInMainHand().getType()
+                + player.getEquipment().getItemInOffHand().getType();
+        return toHash.hashCode();
     }
 }

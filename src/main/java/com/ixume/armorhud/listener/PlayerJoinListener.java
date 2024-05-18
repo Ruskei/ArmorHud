@@ -15,7 +15,6 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         //read player equipment
-        Player player = event.getPlayer();
-        HudsHolder.addHud(player.getUniqueId(), new Hud(new EquipmentSerializer(), player));
+        HudsHolder.getInstance().addHud(event.getPlayer().getUniqueId(), new Hud(new EquipmentSerializer(), event.getPlayer()));
     }
 }

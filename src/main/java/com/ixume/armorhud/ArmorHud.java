@@ -8,7 +8,12 @@ public final class ArmorHud extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        HudsHolder.start(this);
+        HudsHolder.getInstance().start(this);
         new PlayerJoinListener().init(this);
+    }
+
+    @Override
+    public void onDisable() {
+        HudsHolder.getInstance().end();
     }
 }
