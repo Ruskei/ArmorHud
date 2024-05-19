@@ -1,5 +1,6 @@
-package com.ixume.armorhud;
+package com.ixume.armorhud.hud;
 
+import com.ixume.armorhud.ArmorHud;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitTask;
 

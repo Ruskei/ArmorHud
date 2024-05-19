@@ -1,5 +1,6 @@
-package com.ixume.armorhud;
+package com.ixume.armorhud.hud;
 
+import com.ixume.armorhud.EquipmentSerializer;
 import org.bukkit.Material;
 import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
@@ -10,7 +11,7 @@ import org.joml.Vector2i;
 import javax.annotation.Nullable;
 
 public class HudSlot {
-    private EquipmentSerializer serializer;
+    private final EquipmentSerializer serializer;
     private Material material;
     private final EquipmentSlot slot;
     private Vector2i position; //centered around center of screen for x, 0-255 for y (0 at the top, 255 at bottom)

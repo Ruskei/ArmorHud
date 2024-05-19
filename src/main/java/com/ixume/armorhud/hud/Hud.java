@@ -1,5 +1,6 @@
-package com.ixume.armorhud;
+package com.ixume.armorhud.hud;
 
+import com.ixume.armorhud.BossEventFactory;
 import net.md_5.bungee.api.chat.TranslatableComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import net.minecraft.network.chat.Component;
@@ -10,7 +11,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
-import org.joml.Vector2i;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -19,19 +19,25 @@ import java.util.List;
 public class Hud {
     private final Player player;
     private final List<HudSlot> slots = new ArrayList<>();
+    private HudLayout positions;
     private int cachedEquipment;
     private BossEvent event;
 
-    public Hud(Player player) {
+    public Hud(Player player, HudLayout positions) {
         this.player = player;
+        this.positions = positions;
+    }
+
+    public void setPositions(HudLayout positions) {
+        this.positions = positions;
     }
 
     public void init() {
         //generate icons
-        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.HEAD, new Vector2i(-156, 235)));
-        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.CHEST, new Vector2i(-156 + 20, 235)));
-        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.LEGS, new Vector2i(-156 + 20 * 2, 235)));
-        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.FEET, new Vector2i(-156 + 20 * 3, 235)));
+        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.HEAD, positions.positions()[0]));
+        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.CHEST, positions.positions()[1]));
+        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.LEGS, positions.positions()[2]));
+        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.FEET, positions.positions()[3]));
         cachedEquipment = hashEquipment();
         //create boss event
         event = BossEventFactory.getInstance().createBossEvent(Component.Serializer.fromJson(serialize()), BossEvent.BossBarColor.YELLOW);
@@ -90,5 +96,3 @@ public class Hud {
         }
     }
 }
-
-//[{"translate":"space.-18"},{"translate":"offset.-156","with":[{"color":"#ffebff","font":"armor_hud:general","translate":"armor_hud.NETHERITE_HELMET"}]},{"translate":"space.-18"},{"translate":"offset.-136","with":[{"color":"#ffebff","font":"armor_hud:general","translate":"armor_hud.GOLDEN_CHESTPLATE"}]},{"translate":"space.-18"},{"translate":"offset.-116","with":[{"color":"#ffebff","font":"armor_hud:general","translate":"armor_hud.LEGS.AIR"}]},{"translate":"space.-18"},{"translate":"offset.-96","with":[{"color":"#ffebff","font":"armor_hud:general","translate":"armor_hud.FEET.AIR"}]},{"translate":"space.-18"},{"translate":"offset.110","with":[{"color":"#ffebff","font":"armor_hud:general","translate":"armor_hud.GOLDEN_CHESTPLATE"}]},{"translate":"space.-18"},{"translate":"offset.130","with":[{"color":"#ffebff","font":"armor_hud:general","translate":"armor_hud.NETHERITE_SWORD"}]},{"translate":"newlayer"},{"translate":"space.-18"},{"translate":"offset.-156","with":[{"color":"#3beb43","font":"armor_hud:general","translate":"armor_hud.DURABILITY"}]},{"translate":"space.-18"},{"translate":"offset.-136","with":[{"color":"#3beb1b","font":"armor_hud:general","translate":"armor_hud.DURABILITY"}]},{"translate":"space.-18"},{"translate":"offset.110","with":[{"color":"#3beb1b","font":"armor_hud:general","translate":"armor_hud.DURABILITY"}]},{"translate":"space.-18"},{"translate":"offset.130","with":[{"color":"#3bebd9","font":"armor_hud:general","translate":"armor_hud.DURABILITY"}]}]
