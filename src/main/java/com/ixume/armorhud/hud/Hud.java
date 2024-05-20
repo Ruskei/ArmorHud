@@ -19,25 +19,25 @@ import java.util.List;
 public class Hud {
     private final Player player;
     private final List<HudSlot> slots = new ArrayList<>();
-    private HudLayout positions;
+    private HudLayout layout;
     private int cachedEquipment;
     private BossEvent event;
 
     public Hud(Player player, HudLayout positions) {
         this.player = player;
-        this.positions = positions;
+        this.layout = positions;
     }
 
     public void setPositions(HudLayout positions) {
-        this.positions = positions;
+        this.layout = positions;
     }
 
     public void init() {
         //generate icons
-        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.HEAD, positions.positions()[0]));
-        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.CHEST, positions.positions()[1]));
-        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.LEGS, positions.positions()[2]));
-        slots.add(new HudSlot(player.getEquipment(), EquipmentSlot.FEET, positions.positions()[3]));
+        slots.add(new HudSlot(layout, player.getEquipment(), EquipmentSlot.HEAD, layout.positions()[0]));
+        slots.add(new HudSlot(layout, player.getEquipment(), EquipmentSlot.CHEST, layout.positions()[1]));
+        slots.add(new HudSlot(layout, player.getEquipment(), EquipmentSlot.LEGS, layout.positions()[2]));
+        slots.add(new HudSlot(layout, player.getEquipment(), EquipmentSlot.FEET, layout.positions()[3]));
         cachedEquipment = hashEquipment();
         //create boss event
         event = BossEventFactory.getInstance().createBossEvent(Component.Serializer.fromJson(serialize()), BossEvent.BossBarColor.YELLOW);

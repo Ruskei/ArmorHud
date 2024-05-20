@@ -1,5 +1,6 @@
 package com.ixume.armorhud;
 
+import com.ixume.armorhud.hud.Alignment;
 import com.ixume.armorhud.hud.HudSlot;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.TranslatableComponent;
@@ -10,8 +11,6 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class EquipmentSerializer {
-    private final static int DURABILITY_MARKER = 59;
-
     private final HudSlot slot;
 
     public EquipmentSerializer(HudSlot slot) {
@@ -21,7 +20,7 @@ public class EquipmentSerializer {
     public java.util.List<TranslatableComponent> serializeIcon() {
         TranslatableComponent itemComponent = translationOf(slot.getMaterial(), slot.getSlot());
         //set position
-        itemComponent.setColor(ChatColor.of(new Color(255, slot.getPosition().y, 255)));
+        itemComponent.setColor(ChatColor.of(new Color(encode(slot.getLayout().horizontal(), slot.getLayout().vertical(), false), slot.getPosition().y, 255)));
         return offset(itemComponent, slot.getPosition().x);
     }
 
@@ -29,7 +28,7 @@ public class EquipmentSerializer {
         if (slot.getDurability() == -1 || slot.getDurability() == 255) return new ArrayList<>();
         TranslatableComponent durabilityComponent = new TranslatableComponent(ArmorHud.PREFIX + ".DURABILITY");
         durabilityComponent.setFont(ArmorHud.PREFIX + ":general");
-        durabilityComponent.setColor(ChatColor.of(new Color(DURABILITY_MARKER, slot.getPosition().y, slot.getDurability())));
+        durabilityComponent.setColor(ChatColor.of(new Color(encode(slot.getLayout().horizontal(), slot.getLayout().vertical(), true), slot.getPosition().y, slot.getDurability())));
         return offset(durabilityComponent, slot.getPosition().x);
     }
 
@@ -52,5 +51,9 @@ public class EquipmentSerializer {
 
         component.setFont(ArmorHud.PREFIX + ":general");
         return component;
+    }
+
+    private int encode(Alignment horizontal, Alignment vertical, boolean isDurabilityComponent) {
+        return (vertical.getValue() * 3 + horizontal.getValue()) << 4 + (isDurabilityComponent ? 1 : 0);
     }
 }

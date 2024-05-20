@@ -11,13 +11,15 @@ import org.joml.Vector2i;
 import javax.annotation.Nullable;
 
 public class HudSlot {
+    private final HudLayout layout;
     private final EquipmentSerializer serializer;
     private Material material;
     private final EquipmentSlot slot;
     private Vector2i position; //centered around center of screen for x, 0-255 for y (0 at the top, 255 at bottom)
     private int durability; //0-255
 
-    public HudSlot(@Nullable EntityEquipment equipment, EquipmentSlot slot, Vector2i position) {
+    public HudSlot(HudLayout layout, @Nullable EntityEquipment equipment, EquipmentSlot slot, Vector2i position) {
+        this.layout = layout;
         serializer = new EquipmentSerializer(this);
         this.slot = slot;
         this.position = position;
@@ -47,6 +49,10 @@ public class HudSlot {
                 }
             }
         }
+    }
+
+    public HudLayout getLayout() {
+        return layout;
     }
 
     public EquipmentSerializer getSerializer() {
