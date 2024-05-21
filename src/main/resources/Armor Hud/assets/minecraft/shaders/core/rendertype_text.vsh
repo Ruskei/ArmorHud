@@ -33,9 +33,9 @@ void main() {
     if (icol == ivec3(13, 14, 15)) {
         vec2 scaledScreenSize = 2 / vec2(ProjMat[0][0], -ProjMat[1][1]);
         ivec3 textColor = ivec3(Color.rgb * 255.5);
-        uint alignment = textColor.x >> 4;
-        uint verticalAlignment = floor(alignment / 3.);
-        uint horizontalAlignment = mod(alignment, 3);
+        uint alignment = uint(textColor.x >> 4);
+        uint verticalAlignment = uint(floor(alignment / 3.));
+        uint horizontalAlignment = uint(mod(alignment, 3));
         if (Position.z == 0.0) {
             custom = 0.0;
             gl_Position = vec4(0);
@@ -48,8 +48,28 @@ void main() {
         int vertexId = gl_VertexID % 4;
         switch (vertexId) {
             //+1 is a gui pixel
-            case 1: { yOffset += 18; pos.x /= 2; break; }
+            case 1: { yOffset += 18; break; }
             case 2: { yOffset += 18; break; }
+        }
+
+        switch (horizontalAlignment) {
+            case 0:
+                //left aligned, do nothing for now
+                vertexColor = vec4(0., 1., 0., 1.);
+                break;
+            case 1:;
+                //middle aligned, unsure of this
+                break;
+            case 2:
+                vertexColor = vec4(0., 0., 1., 1.);
+                pos.x = scaledScreenSize.x - pos.x;
+                if (vertexId == 2 || vertexId == 3) {
+                    pos.x += 36;
+                }
+                break;
+            default:
+                vertexColor = vec4(1., 0., 0., 1.);
+                break;
         }
 
         int yPosition;

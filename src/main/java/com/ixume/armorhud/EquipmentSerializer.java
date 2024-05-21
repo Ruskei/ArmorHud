@@ -54,6 +54,6 @@ public class EquipmentSerializer {
     }
 
     private int encode(Alignment horizontal, Alignment vertical, boolean isDurabilityComponent) {
-        return (vertical.getValue() * 3 + horizontal.getValue()) << 4 + (isDurabilityComponent ? 1 : 0);
+        return ((vertical.getValue() * 3 + horizontal.getValue()) << 4) + (isDurabilityComponent ? 1 : 0);
     }
 }
