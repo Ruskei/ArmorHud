@@ -52,24 +52,10 @@ void main() {
             case 2: { yOffset += 18; break; }
         }
 
-        switch (horizontalAlignment) {
-            case 0:
-                //left aligned, do nothing for now
-                vertexColor = vec4(0., 1., 0., 1.);
-                break;
-            case 1:;
-                //middle aligned, unsure of this
-                break;
-            case 2:
-                vertexColor = vec4(0., 0., 1., 1.);
-                pos.x = scaledScreenSize.x - pos.x;
-                if (vertexId == 2 || vertexId == 3) {
-                    pos.x += 36;
-                }
-                break;
-            default:
-                vertexColor = vec4(1., 0., 0., 1.);
-                break;
+        if (pos.x > scaledScreenSize.x / 2.) {
+            pos.x -= scaledScreenSize.x / 2;
+        } else {
+            pos.x = scaledScreenSize.x - (scaledScreenSize.x / 2. - pos.x);
         }
 
         int yPosition;
