@@ -6,5 +6,5 @@ import org.joml.Vector2i;
 //1 = chest
 //2 = legs
 //3 = boots
-public record HudLayout(Vector2i[] positions, Alignment horizontal, Alignment vertical) {
+public record HudLayout(Vector2i[] positions, Alignment horizontalAlignment, Alignment verticalAlignment) {
 }

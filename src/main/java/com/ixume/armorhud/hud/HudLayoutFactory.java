@@ -12,10 +12,10 @@ public class HudLayoutFactory {
     private HudLayoutFactory() {
         layouts = new HashMap<>();
         layouts.put("HOTBAR", new HudLayout(new Vector2i[]{
-                new Vector2i(20, 225),
-                new Vector2i(20 + 20, 225),
-                new Vector2i(20 + 20 * 2, 225),
-                new Vector2i(20 + 20 * 3, 225)}, Alignment.MAX, Alignment.MAX));
+                new Vector2i(-160, 20),
+                new Vector2i(-160 + 20, 20),
+                new Vector2i(-160 + 20 * 2, 20),
+                new Vector2i(-160 + 20 * 3, 20)}, Alignment.CENTER, Alignment.BOTTOM));
     }
 
     public static HudLayoutFactory getInstance() {

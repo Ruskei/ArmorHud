@@ -36,6 +36,7 @@ void main() {
         uint alignment = uint(textColor.x >> 4);
         uint verticalAlignment = uint(floor(alignment / 3.));
         uint horizontalAlignment = uint(mod(alignment, 3));
+
         if (Position.z == 0.0) {
             custom = 0.0;
             gl_Position = vec4(0);
@@ -52,18 +53,32 @@ void main() {
             case 2: { yOffset += 18; break; }
         }
 
-        if (pos.x > scaledScreenSize.x / 2.) {
+        if (horizontalAlignment == uint(0)) {
+            //bottom
             pos.x -= scaledScreenSize.x / 2;
+        } else if (horizontalAlignment == uint(1)) {
+            //centre
+            //do nothing
         } else {
-            pos.x = scaledScreenSize.x - (scaledScreenSize.x / 2. - pos.x);
+            //top
+            pos.x = scaledScreenSize.x - (pos.x - scaledScreenSize.x / 2.);
+            if (vertexId == 2 || vertexId == 3) {
+                pos.x += 36;
+            }
         }
 
-        int yPosition;
-        switch (verticalAlignment) {
-
+        if (verticalAlignment == uint(0)) {
+            //bottom
+            yOffset += scaledScreenSize.y - Color.y * 256;
+        } else if (verticalAlignment == uint(1)) {
+            //centre
+            yOffset += scaledScreenSize.y / 2. + Color.y * 256;
+        } else {
+            //top
+            yOffset += Color.y * 256;
         }
 
-        yOffset += Color.y * scaledScreenSize.y;
+//        yOffset += Color.y * scaledScreenSize.y;
 
         pos.y = yOffset;
 

@@ -1,9 +1,9 @@
 package com.ixume.armorhud.hud;
 
 public enum Alignment {
-    MIN(0),
+    TOP(2),
     CENTER(1),
-    MAX(2);
+    BOTTOM(0);
 
     private final int value;
 
