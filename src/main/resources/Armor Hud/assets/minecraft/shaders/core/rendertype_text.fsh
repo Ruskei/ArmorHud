@@ -26,7 +26,7 @@ void main() {
         //health bar colors 20, 39, 59, 79, 98, 118, 138, 158, 177, 197, 217, 236, 255
         vec4 pixelColor = texture(Sampler0, texCoord0);
         ivec3 icol = ivec3(pixelColor.rgb * 255.5);
-        if (icol == ivec3(13, 14, 15)) {
+        if (icol.xy == ivec2(13, 14) && (icol.z == 15 || icol.z == 16)) {
             discard;
         }
 

@@ -30,7 +30,7 @@ void main() {
     texCoord0 = UV0;
     vec4 pixelColor = texture(Sampler0, texCoord0);
     ivec3 icol = ivec3(pixelColor.rgb * 255.5);
-    if (icol == ivec3(13, 14, 15)) {
+    if (icol.xy == ivec2(13, 14) && (icol.z == 15 || icol.z == 16)) {
         vec2 scaledScreenSize = 2 / vec2(ProjMat[0][0], -ProjMat[1][1]);
         ivec3 textColor = ivec3(Color.rgb * 255.5);
         uint alignment = uint(textColor.x >> 4);
@@ -82,7 +82,7 @@ void main() {
 
         pos.y = yOffset;
 
-        if (abs(Color.x - 59./255.5) < 0.01) {
+        if (icol.z == 16) {
             custom = Color.z * 255.5;
         }
     } else {
