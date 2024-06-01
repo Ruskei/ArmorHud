@@ -34,6 +34,8 @@ void main() {
         vec2 scaledScreenSize = 2 / vec2(ProjMat[0][0], -ProjMat[1][1]);
         ivec3 textColor = ivec3(Color.rgb * 255.5);
         uint alignment = uint(textColor.x >> 4);
+        uint encoding = uint(textColor.x & 2);
+        int ySign = encoding == uint(2) ? 1 : -1;
         uint verticalAlignment = uint(floor(alignment / 3.));
         uint horizontalAlignment = uint(mod(alignment, 3));
 
@@ -69,13 +71,13 @@ void main() {
 
         if (verticalAlignment == uint(0)) {
             //bottom
-            yOffset += scaledScreenSize.y - Color.y * 256;
+            yOffset += scaledScreenSize.y - Color.y * 256 * ySign;
         } else if (verticalAlignment == uint(1)) {
             //centre
-            yOffset += scaledScreenSize.y / 2. + Color.y * 256;
+            yOffset += scaledScreenSize.y / 2. + Color.y * 256 * ySign;
         } else {
             //top
-            yOffset += Color.y * 256;
+            yOffset += Color.y * 256 * ySign;
         }
 
 //        yOffset += Color.y * scaledScreenSize.y;

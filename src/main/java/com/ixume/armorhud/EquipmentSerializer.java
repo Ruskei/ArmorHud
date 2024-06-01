@@ -20,7 +20,7 @@ public class EquipmentSerializer {
     public java.util.List<TranslatableComponent> serializeIcon() {
         TranslatableComponent itemComponent = translationOf(slot.getMaterial(), slot.getSlot());
         //set position
-        itemComponent.setColor(ChatColor.of(new Color(encode(slot.getLayout().horizontalAlignment(), slot.getLayout().verticalAlignment(), slot.getPosition().y, false), slot.getPosition().y, 255)));
+        itemComponent.setColor(ChatColor.of(new Color(encode(slot.getLayout().horizontalAlignment(), slot.getLayout().verticalAlignment(), slot.getPosition().y, false), Math.abs(slot.getPosition().y), 255)));
         return offset(itemComponent, slot.getPosition().x);
     }
 
@@ -28,7 +28,7 @@ public class EquipmentSerializer {
         if (slot.getDurability() == -1 || slot.getDurability() == 255) return new ArrayList<>();
         TranslatableComponent durabilityComponent = new TranslatableComponent(ArmorHud.PREFIX + ".DURABILITY");
         durabilityComponent.setFont(ArmorHud.PREFIX + ":general");
-        durabilityComponent.setColor(ChatColor.of(new Color(encode(slot.getLayout().horizontalAlignment(), slot.getLayout().verticalAlignment(), slot.getPosition().y, true), slot.getPosition().y, slot.getDurability())));
+        durabilityComponent.setColor(ChatColor.of(new Color(encode(slot.getLayout().horizontalAlignment(), slot.getLayout().verticalAlignment(), slot.getPosition().y, true), Math.abs(slot.getPosition().y), slot.getDurability())));
         return offset(durabilityComponent, slot.getPosition().x);
     }
 
