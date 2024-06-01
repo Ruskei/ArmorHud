@@ -1,0 +1,67 @@
+{
+  "huds" : [
+    {
+      "name": "HOTBAR_LEFT",
+      "head": {
+        "x": -160,
+        "y": 20
+      },
+      "chest": {
+        "x": -140,
+        "y": 20
+      },
+      "legs": {
+        "x": -120,
+        "y": 20
+      },
+      "feet": {
+        "x": -100,
+        "y": 20
+      },
+      "horizontal": "CENTER",
+      "vertical": "BOTTOM"
+    },
+    {
+      "name": "HOTBAR_RIGHT",
+      "head": {
+        "x": 122,
+        "y": 20
+      },
+      "chest": {
+        "x": -142,
+        "y": 20
+      },
+      "legs": {
+        "x": 162,
+        "y": 20
+      },
+      "feet": {
+        "x": 182,
+        "y": 20
+      },
+      "horizontal": "CENTER",
+      "vertical": "BOTTOM"
+    },
+    {
+      "name": "SCREEN_LEFT",
+      "head": {
+        "x": 122,
+        "y": -20
+      },
+      "chest": {
+        "x": 142,
+        "y": 20
+      },
+      "legs": {
+        "x": -120,
+        "y": 20
+      },
+      "feet": {
+        "x": -100,
+        "y": 20
+      },
+      "horizontal": "BOTTOM",
+      "vertical": "CENTER"
+    }
+  ]
+}
