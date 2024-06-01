@@ -17,6 +17,6 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
         //read player equipment
-        HudsHolder.getInstance().addHud(event.getPlayer().getUniqueId(), new Hud(event.getPlayer(), HudLayoutFactory.getInstance().getLayout("HOTBAR")));
+        HudsHolder.getInstance().addHud(event.getPlayer().getUniqueId(), new Hud(event.getPlayer(), HudLayoutFactory.getInstance().getLayout("SCREEN_LEFT")));
     }
 }
